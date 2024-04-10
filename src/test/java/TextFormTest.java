@@ -39,8 +39,8 @@ public class TextFormTest {
         $(byClassName("react-datepicker__day--019")).click();   //выбор дня
         $("#subjectsInput").setValue("Chemistry").pressEnter();
         $("[for='hobbies-checkbox-3']").click();
-       // $("#uploadPicture").uploadFile(new File("src/test/resources/cat.JPG"));
-        $("[for='uploadPicture']").uploadFile(new File("src/test/resources/cat.JPG"));
+        $("#uploadPicture").uploadFile(new File("src/test/resources/cat.JPG"));
+        //$("[for='uploadPicture']").uploadFile(new File("src/test/resources/cat.JPG"));
         $("#currentAddress").setValue("CurrentAddress");
         $("#state").scrollIntoView(true).click();
         $(byText("NCR")).click();
