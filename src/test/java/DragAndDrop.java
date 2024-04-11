@@ -1,11 +1,10 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.DragAndDropOptions;
-import dev.failsafe.internal.util.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DragAndDrop {
 
@@ -25,7 +24,11 @@ public class DragAndDrop {
     @Test
     void moveTheSquare() {
         open("https://the-internet.herokuapp.com/drag_and_drop");
-        $("#column-a").dragAndDrop(DragAndDropOptions.to($("#column-b")));
+       // $("#column-a").dragAndDrop(DragAndDropOptions.to($("#column-b")));
+        actions().moveToElement($("#column-b")).clickAndHold().moveToElement($("#column-a")).
+                release().perform();
+        $("#column-a").shouldHave(exactText("B"));
+        $("#column-b").shouldHave(exactText("A"));
 
 
     }
