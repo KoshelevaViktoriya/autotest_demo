@@ -7,8 +7,6 @@ import pages.RegistrationPage;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Selectors.byClassName;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TextFormTestWithPO {
@@ -30,25 +28,17 @@ public class TextFormTestWithPO {
         registrationPage.typeLastName("Kosheleva");
         registrationPage.typeEmail("email@com");
         executeJavaScript("window.scrollBy(0, 500);");
-
-        $(byText("Female")).click();
-
+        registrationPage.typeGenderButton();
         registrationPage.typeUserNumber("+79992345678");
-
-
         //выбор даты рождения
-        $("#dateOfBirthInput").click();     //календарь
-        $(byClassName("react-datepicker__month-select")).click();   //список месяцев
-        $(byClassName("react-datepicker__month-select")).selectOptionByValue("10");
-        $(byClassName("react-datepicker__year-select")).click();    //список с годом
-        $(byClassName("react-datepicker__year-select")).selectOptionByValue("1995");
-        $(byClassName("react-datepicker__day--019")).click();   //выбор дня
+        registrationPage.typeDateOfBirthday();//календарь
+        registrationPage.typeMonthOfBirthday("10");//список месяцев
+        registrationPage.typeYearOfBirthday("1992");//список с годом
+        registrationPage.typeDayOfBirthday();   //выбор дня
         registrationPage.typeSubjectInput("Chemistry");
-
-        $("[for='hobbies-checkbox-3']").click();
-        $("#uploadPicture").uploadFile(new File("src/test/resources/cat.JPG"));
+        registrationPage.typeHobbiesButton();
+        registrationPage.typeSelectPicture("src/test/resources/cat.JPG");
         //$("[for='uploadPicture']").uploadFile(new File("src/test/resources/cat.JPG"));
-
         registrationPage.typeCurrentAddress("CurrentAddress");
         registrationPage.typeStateInput();
         registrationPage.typeCityInput();

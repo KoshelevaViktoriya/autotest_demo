@@ -1,4 +1,5 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
@@ -48,11 +49,12 @@ public class TextFormTest {
 
         $("#submit").click();
 
-//        @AfterEach
-//        static void closeBrowser() {
-//            closeWebDriver();
-//        }
+
     }
 
+    @AfterEach
+    void closeBrowser() {
+        closeWebDriver();
+    }
 
 }
