@@ -1,32 +1,32 @@
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+package test.textFormTest;
+
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
-import pages.RegistrationPage;
+import test.TestBase;
 
-import java.io.File;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static com.codeborne.selenide.Selenide.open;
+import static utils.RandomUtils.getRandomEmail;
+import static utils.RandomUtils.getRandomString;
 
-import static com.codeborne.selenide.Selenide.*;
-
-public class TextFormTestWithPO {
+public class TextFormTestWithFaker extends TestBase {
     static Logger log = LoggerFactory.getLogger(TextFormTestWithPO.class);
-    RegistrationPage registrationPage = new RegistrationPage();
-
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920*1080";
-        Configuration.baseUrl = "https://demoqa.com/";
-    }
-
 
     @Test
     void fillInputTest() {
+
+       Faker faker = new Faker();
+
+        String userName = faker.name().firstName(),
+                lastName = faker.name().lastName(),
+                userEmail = faker.internet().emailAddress();
+
         open("automation-practice-form");
-        registrationPage.typeFirstName("Viktoriya");
-        registrationPage.typeLastName("Kosheleva");
-        registrationPage.typeEmail("email@com");
+        registrationPage.typeFirstName(userName);
+        registrationPage.typeLastName(lastName);
+        registrationPage.typeEmail(userEmail);
         executeJavaScript("window.scrollBy(0, 500);");
         registrationPage.typeGenderButton();
         registrationPage.typeUserNumber("+79992345678");
