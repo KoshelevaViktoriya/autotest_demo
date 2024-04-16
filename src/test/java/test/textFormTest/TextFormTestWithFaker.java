@@ -8,20 +8,23 @@ import test.TestBase;
 
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.open;
-import static utils.RandomUtils.getRandomEmail;
-import static utils.RandomUtils.getRandomString;
+import static java.lang.Thread.sleep;
 
 public class TextFormTestWithFaker extends TestBase {
     static Logger log = LoggerFactory.getLogger(TextFormTestWithPO.class);
 
     @Test
-    void fillInputTest() {
+    void fillInputTest() throws InterruptedException {
 
-       Faker faker = new Faker();
+        Faker faker = new Faker();
 
         String userName = faker.name().firstName(),
                 lastName = faker.name().lastName(),
-                userEmail = faker.internet().emailAddress();
+                userEmail = faker.internet().emailAddress(),
+                userAddress = faker.address().fullAddress(),
+                userNumber = "+7" + faker.number().numberBetween(100000, 9999999);
+
+
 
         open("automation-practice-form");
         registrationPage.typeFirstName(userName);
@@ -29,7 +32,7 @@ public class TextFormTestWithFaker extends TestBase {
         registrationPage.typeEmail(userEmail);
         executeJavaScript("window.scrollBy(0, 500);");
         registrationPage.typeGenderButton();
-        registrationPage.typeUserNumber("+79992345678");
+        registrationPage.typeUserNumber(userNumber);
         //выбор даты рождения
         registrationPage.typeDateOfBirthday();//календарь
         registrationPage.typeMonthOfBirthday("10");//список месяцев
@@ -39,10 +42,12 @@ public class TextFormTestWithFaker extends TestBase {
         registrationPage.typeHobbiesButton();
         registrationPage.typeSelectPicture("src/test/resources/cat.JPG");
         //$("[for='uploadPicture']").uploadFile(new File("src/test/resources/cat.JPG"));
-        registrationPage.typeCurrentAddress("CurrentAddress");
+        registrationPage.typeCurrentAddress(userAddress);
         registrationPage.typeStateInput();
         registrationPage.typeCityInput();
         registrationPage.clickSubmitButton();
+
+        sleep(5000);
 
 
 //        @AfterEach

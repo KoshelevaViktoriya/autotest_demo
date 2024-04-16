@@ -7,17 +7,19 @@ import test.TestBase;
 
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.open;
-import static utils.RandomUtils.getRandomEmail;
-import static utils.RandomUtils.getRandomString;
+import static utils.RandomUtils.*;
 
 public class TextFormTestWithPO extends TestBase {
     static Logger log = LoggerFactory.getLogger(TextFormTestWithPO.class);
 
     @Test
     void fillInputTest() {
-        String userName = getRandomString(10),
-                lastName = getRandomString(10),
-                userEmail = getRandomEmail();
+        String userName = getRandomString(10);
+        String lastName = getRandomString(10);
+        String userEmail = getRandomEmail();
+        String phoneNumber = generateRandomPhoneNumber();
+        String userAddress = generateRandomAddress();
+
 
         open("automation-practice-form");
         registrationPage.typeFirstName(userName);
@@ -25,7 +27,7 @@ public class TextFormTestWithPO extends TestBase {
         registrationPage.typeEmail(userEmail);
         executeJavaScript("window.scrollBy(0, 500);");
         registrationPage.typeGenderButton();
-        registrationPage.typeUserNumber("+79992345678");
+        registrationPage.typeUserNumber(phoneNumber);
         //выбор даты рождения
         registrationPage.typeDateOfBirthday();//календарь
         registrationPage.typeMonthOfBirthday("10");//список месяцев
@@ -35,17 +37,9 @@ public class TextFormTestWithPO extends TestBase {
         registrationPage.typeHobbiesButton();
         registrationPage.typeSelectPicture("src/test/resources/cat.JPG");
         //$("[for='uploadPicture']").uploadFile(new File("src/test/resources/cat.JPG"));
-        registrationPage.typeCurrentAddress("CurrentAddress");
+        registrationPage.typeCurrentAddress(generateRandomAddress());
         registrationPage.typeStateInput();
         registrationPage.typeCityInput();
         registrationPage.clickSubmitButton();
-
-
-//        @AfterEach
-//        static void closeBrowser() {
-//            closeWebDriver();
-//        }
     }
-
-
 }
